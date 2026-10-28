@@ -1,36 +1,43 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# Tủ Sách
 
-## Getting Started
+Thư viện sách cá nhân: tải EPUB / TXT / Markdown, quản lý chương, đọc với font và bố cục tuỳ chỉnh.
 
-First, run the development server:
+Stack: Next.js 16 · Supabase (Auth, Postgres, Storage) · Zod 4 · React Hook Form · shadcn/ui · Tailwind 4.
+Kế hoạch và tiến độ: [docs/PLAN.md](docs/PLAN.md).
+
+## Cài đặt
+
+1. Tạo project trên [Supabase](https://supabase.com/dashboard).
+2. **Authentication → Sign In / Providers → Email**: tắt **Confirm email** (app đăng nhập bằng username, không gửi email).
+3. **SQL Editor**: chạy lần lượt các file trong `supabase/migrations/`.
+4. Copy `.env.example` thành `.env.local`, điền URL và publishable key (Project Settings → API Keys).
+5. Chạy:
 
 ```bash
+npm install
 npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+Yêu cầu Node.js 22 trở lên (supabase-js đã ngừng hỗ trợ Node 20).
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+## Sinh lại type cho database
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+`src/types/database.ts` đang viết tay theo schema. Muốn sinh tự động:
 
-## Learn More
+```bash
+npx supabase login
+npx supabase link --project-ref <project-ref>
+npm run db:types
+```
 
-To learn more about Next.js, take a look at the following resources:
+## Cấu trúc
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
-
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
-
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+```
+src/
+  app/(auth)/          trang đăng nhập, đăng ký (layout chia đôi màn hình)
+  app/(main)/          các trang có header
+  features/<tên>/      schemas.ts (Zod) · actions.ts (Server Action) · queries.ts · components/
+  lib/supabase/        client cho server, browser và proxy
+  proxy.ts             refresh session, chặn trang cần đăng nhập
+supabase/migrations/   schema, RLS, trigger, storage
+```

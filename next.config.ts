@@ -1,7 +1,11 @@
 import type { NextConfig } from "next";
 
 const nextConfig: NextConfig = {
-  /* config options here */
+  logging: {
+    // Mặc định dev server in tham số của mỗi Server Action ra terminal,
+    // tức là in luôn mật khẩu lúc đăng nhập / đăng ký.
+    serverFunctions: false,
+  },
   turbopack: {
     rules: {
       "*.css": {

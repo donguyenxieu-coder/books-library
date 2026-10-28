@@ -42,3 +42,7 @@ next-env.d.ts
 
 /data
 *.zip
+!.env.example
+
+# tài khoản test, chỉ giữ ở máy local
+/docs/test-accounts.md
