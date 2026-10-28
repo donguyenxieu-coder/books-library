@@ -1,6 +1,7 @@
 import Link from "next/link";
 
 import { BrandLogo } from "@/components/brand-logo";
+import { MainNav } from "@/components/main-nav";
 import { ThemeToggle } from "@/components/theme-toggle";
 import { Button } from "@/components/ui/button";
 import { UserMenu } from "@/features/auth/components/user-menu";
@@ -14,7 +15,10 @@ export async function SiteHeader() {
   return (
     <header className="sticky top-0 z-40 border-b bg-background/80 backdrop-blur-md supports-[backdrop-filter]:bg-background/60">
       <div className="mx-auto flex h-16 w-full max-w-6xl items-center justify-between gap-4 px-4 sm:px-6">
-        <BrandLogo />
+        <div className="flex items-center gap-6">
+          <BrandLogo />
+          {profile && <MainNav />}
+        </div>
         <div className="flex items-center gap-1">
           <ThemeToggle />
           {profile ? (

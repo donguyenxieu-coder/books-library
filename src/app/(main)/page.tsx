@@ -82,10 +82,18 @@ function Welcome({ fullName }: { fullName: string }) {
           <BookOpenTextIcon className="size-6 text-muted-foreground" />
         </span>
         <div className="space-y-1">
-          <h2 className="font-medium">Tủ sách của bạn đang trống</h2>
+          <h2 className="font-medium">Bắt đầu với một cuốn sách</h2>
           <p className="max-w-sm text-sm text-muted-foreground">
-            Tính năng tải sách lên (EPUB, TXT, Markdown) sẽ có ở bản cập nhật tiếp theo.
+            Tải lên file EPUB, TXT hoặc Markdown. Lịch sử đọc gần đây sẽ hiện ở đây.
           </p>
+        </div>
+        <div className="flex flex-wrap justify-center gap-3">
+          <Button asChild>
+            <Link href="/books/new">Tải sách lên</Link>
+          </Button>
+          <Button asChild variant="outline">
+            <Link href="/library">Mở thư viện</Link>
+          </Button>
         </div>
       </section>
     </div>

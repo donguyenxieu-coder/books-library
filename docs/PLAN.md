@@ -18,7 +18,7 @@ Migration SQL mới: chạy trong Supabase SQL Editor **trước** khi merge cod
 | Parse sách | Trên trình duyệt: EPUB (JSZip + DOMParser, theo spine/TOC), md (`marked`), txt (regex `Chương \d+`). Có bước xem trước chương |
 | Lưu sách | Ảnh bìa upload thẳng lên Storage. Chương gửi qua Server Action theo lô ~500KB, server `safeParse` lại |
 | Số thứ tự chương | Chỉ lưu `position`; "Chương N" tính khi hiển thị. Reorder qua RPC `reorder_chapters` |
-| Nội dung chương | HTML, sanitize khi render (`sanitize-html`) |
+| Nội dung chương | HTML, sanitize ở server **trước khi lưu** (`sanitize-html`) → DB chỉ chứa HTML an toàn |
 | Highlight / ghi chú | Offset ký tự + đoạn trích; vẽ bằng CSS Custom Highlight API |
 | Lịch sử đọc | `reading_progress` (1 dòng / user–sách, upsert) |
 | Luồng dữ liệu | Đọc: Server Component. Ghi: Zod schema → RHF `zodResolver` → Server Action `safeParse` → `ActionResult` → `setError` |
@@ -40,7 +40,7 @@ highlights        id · user_id · book_id · chapter_id · start_offset · end_
 P0 = bắt buộc để demo · P1 = nên có · P2 = nếu còn thời gian
 
 - [x] **Ngày 1 — Nền móng & Auth**: thư viện + shadcn, migration (bảng, RLS, trigger, storage), `proxy.ts`, đăng ký / đăng nhập / đăng xuất, app shell, deploy Vercel (region `sin1`)
-- [ ] **Ngày 2 — Upload & thư viện**: 3 parser (+ test), wizard upload, lưới thư viện, tìm kiếm `?q=` (unaccent)
+- [x] **Ngày 2 — Upload & thư viện**: 3 parser (+ test), wizard upload, lưới thư viện, tìm kiếm `?q=` (unaccent), trang chi tiết tối giản
 - [ ] **Ngày 3 — Chi tiết & chương**: trang chi tiết, sửa thông tin, soft delete + Hoàn tác, (P1) kéo thả chương, đổi tên, chuyển vị trí
 - [ ] **Ngày 4 — Trình đọc & trang chủ**: trang đọc, cài đặt đọc (bạn tự viết), command palette chọn chương, lưu tiến độ, trang chủ
 - [ ] **Ngày 5 — Bookmark, ghi chú, hoàn thiện**: (P1) bookmark, highlight + note; loading/empty/error, mobile, README

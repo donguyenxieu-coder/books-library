@@ -23,4 +23,11 @@ export const getCurrentProfile = cache(async () => {
   return profile;
 });
 
+// Chỉ cần id (trong Server Action): không query bảng profiles.
+export const getCurrentUserId = cache(async () => {
+  const supabase = await createClient();
+  const { data } = await supabase.auth.getClaims();
+  return data?.claims.sub ?? null;
+});
+
 export type CurrentProfile = NonNullable<Awaited<ReturnType<typeof getCurrentProfile>>>;
