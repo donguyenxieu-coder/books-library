@@ -27,7 +27,7 @@ export function UserMenu({ profile }: { profile: CurrentProfile }) {
   return (
     <DropdownMenu>
       <DropdownMenuTrigger asChild>
-        <Button variant="ghost" className="h-10 gap-2 rounded-full pr-3 pl-1">
+        <Button variant="ghost" aria-label="Mở menu tài khoản" className="h-10 gap-2 rounded-full pr-3 pl-1">
           <Avatar className="size-8">
             {profile.avatar_url && <AvatarImage src={profile.avatar_url} alt="" />}
             <AvatarFallback className="bg-primary text-xs text-primary-foreground">

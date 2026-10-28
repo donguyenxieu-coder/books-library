@@ -289,7 +289,16 @@ export type Database = {
       [_ in never]: never
     }
     Functions: {
-      [_ in never]: never
+      search_books: {
+        Args: { p_query?: string; p_scope?: string }
+        Returns: Database["public"]["Tables"]["books"]["Row"][]
+        SetofOptions: {
+          from: "*"
+          to: "books"
+          isOneToOne: false
+          isSetofReturn: true
+        }
+      }
     }
     Enums: {
       book_format: "epub" | "txt" | "md"

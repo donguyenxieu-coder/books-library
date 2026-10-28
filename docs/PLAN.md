@@ -18,7 +18,7 @@ Migration SQL mới: chạy trong Supabase SQL Editor **trước** khi merge cod
 | Parse sách | Trên trình duyệt: EPUB (JSZip + DOMParser, theo spine/TOC), md (`marked`), txt (regex `Chương \d+`). Có bước xem trước chương |
 | Lưu sách | Ảnh bìa upload thẳng lên Storage. Chương gửi qua Server Action theo lô ~500KB, server `safeParse` lại |
 | Số thứ tự chương | Chỉ lưu `position`; "Chương N" tính khi hiển thị. Reorder qua RPC `reorder_chapters` |
-| Nội dung chương | HTML, sanitize khi render (`sanitize-html`) |
+| Nội dung chương | HTML, sanitize ở server **trước khi lưu** (`sanitize-html`) → DB chỉ chứa HTML an toàn |
 | Highlight / ghi chú | Offset ký tự + đoạn trích; vẽ bằng CSS Custom Highlight API |
 | Lịch sử đọc | `reading_progress` (1 dòng / user–sách, upsert) |
 | Luồng dữ liệu | Đọc: Server Component. Ghi: Zod schema → RHF `zodResolver` → Server Action `safeParse` → `ActionResult` → `setError` |
