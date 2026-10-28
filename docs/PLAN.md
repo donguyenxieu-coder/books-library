@@ -4,6 +4,11 @@ Stack: Next.js 16 (App Router) · Supabase (Auth, Postgres, Storage) · Zod 4 ·
 
 Mock API cũ (Phase 8) được giữ ở tag `phase-8-mock`.
 
+Bản chạy thật: https://books-library-sandy.vercel.app (push `main` = deploy Production, nhánh khác = Preview).
+
+Quy trình từ Ngày 2: mỗi ngày một nhánh `day-N-...` → push để có link Preview → Pull Request → merge vào `main`.
+Migration SQL mới: chạy trong Supabase SQL Editor **trước** khi merge code dùng tới nó.
+
 ## Quyết định kiến trúc
 
 | Vấn đề | Cách làm |
@@ -34,7 +39,7 @@ highlights        id · user_id · book_id · chapter_id · start_offset · end_
 
 P0 = bắt buộc để demo · P1 = nên có · P2 = nếu còn thời gian
 
-- [ ] **Ngày 1 — Nền móng & Auth**: thư viện + shadcn, migration (bảng, RLS, trigger, storage), `proxy.ts`, đăng ký / đăng nhập / đăng xuất, app shell, deploy Vercel
+- [x] **Ngày 1 — Nền móng & Auth**: thư viện + shadcn, migration (bảng, RLS, trigger, storage), `proxy.ts`, đăng ký / đăng nhập / đăng xuất, app shell, deploy Vercel (region `sin1`)
 - [ ] **Ngày 2 — Upload & thư viện**: 3 parser (+ test), wizard upload, lưới thư viện, tìm kiếm `?q=` (unaccent)
 - [ ] **Ngày 3 — Chi tiết & chương**: trang chi tiết, sửa thông tin, soft delete + Hoàn tác, (P1) kéo thả chương, đổi tên, chuyển vị trí
 - [ ] **Ngày 4 — Trình đọc & trang chủ**: trang đọc, cài đặt đọc (bạn tự viết), command palette chọn chương, lưu tiến độ, trang chủ

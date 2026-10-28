@@ -2,7 +2,9 @@
 
 Thư viện sách cá nhân: tải EPUB / TXT / Markdown, quản lý chương, đọc với font và bố cục tuỳ chỉnh.
 
-Stack: Next.js 16 · Supabase (Auth, Postgres, Storage) · Zod 4 · React Hook Form · shadcn/ui · Tailwind 4.
+**Demo:** https://books-library-sandy.vercel.app
+
+Stack: Next.js 16 · Supabase (Auth, Postgres, Storage) · Zod 4 · React Hook Form · shadcn/ui · Tailwind 4 · deploy trên Vercel.
 Kế hoạch và tiến độ: [docs/PLAN.md](docs/PLAN.md).
 
 ## Cài đặt
