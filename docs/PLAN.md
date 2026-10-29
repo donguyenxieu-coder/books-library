@@ -41,7 +41,7 @@ P0 = bắt buộc để demo · P1 = nên có · P2 = nếu còn thời gian
 
 - [x] **Ngày 1 — Nền móng & Auth**: thư viện + shadcn, migration (bảng, RLS, trigger, storage), `proxy.ts`, đăng ký / đăng nhập / đăng xuất, app shell, deploy Vercel (region `sin1`)
 - [x] **Ngày 2 — Upload & thư viện**: 3 parser (+ test), wizard upload, lưới thư viện, tìm kiếm `?q=` (unaccent), trang chi tiết tối giản
-- [ ] **Ngày 3 — Chi tiết & chương**: trang chi tiết, sửa thông tin, soft delete + Hoàn tác, (P1) kéo thả chương, đổi tên, chuyển vị trí
+- [x] **Ngày 3 — Chi tiết & chương**: trang chi tiết, sửa thông tin, soft delete + Hoàn tác, kéo thả chương, đổi tên, xoá chương, chuyển vị trí, trang đọc cơ bản
 - [ ] **Ngày 4 — Trình đọc & trang chủ**: trang đọc, cài đặt đọc (bạn tự viết), command palette chọn chương, lưu tiến độ, trang chủ
 - [ ] **Ngày 5 — Bookmark, ghi chú, hoàn thiện**: (P1) bookmark, highlight + note; loading/empty/error, mobile, README
 

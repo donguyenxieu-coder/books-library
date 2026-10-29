@@ -289,6 +289,14 @@ export type Database = {
       [_ in never]: never
     }
     Functions: {
+      delete_chapter: {
+        Args: { p_chapter_id: string }
+        Returns: undefined
+      }
+      reorder_chapters: {
+        Args: { p_book_id: string; p_chapter_ids: string[] }
+        Returns: undefined
+      }
       search_books: {
         Args: { p_query?: string; p_scope?: string }
         Returns: Database["public"]["Tables"]["books"]["Row"][]

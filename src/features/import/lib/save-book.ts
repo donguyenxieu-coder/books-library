@@ -1,10 +1,9 @@
 import { abortImport, appendChapters, createBook, finishImport } from "@/features/books/actions";
+import { uploadCover } from "@/features/books/lib/upload-cover";
 import type { BookMetaInput } from "@/features/books/schemas";
 import type { ActionResult } from "@/lib/action-result";
-import { createClient } from "@/lib/supabase/client";
 
 import type { BookFormat, ParsedChapter } from "../types";
-import { resizeImage } from "./resize-image";
 
 const encoder = new TextEncoder();
 const MAX_BATCH_BYTES = 800_000; // dưới giới hạn body của Server Action
@@ -48,17 +47,7 @@ export async function saveBook({
   chapters,
   onProgress,
 }: SaveBookParams): Promise<ActionResult<{ bookId: string }>> {
-  let coverPath: string | null = null;
-  if (cover) {
-    const resized = await resizeImage(cover);
-    // Upload thẳng từ trình duyệt lên Storage, không đi qua server Next.js.
-    const path = `${userId}/${crypto.randomUUID()}.webp`;
-    const { error } = await createClient().storage.from("covers").upload(path, resized, {
-      contentType: resized.type,
-    });
-    if (error) throw new Error("Không tải được ảnh bìa lên");
-    coverPath = path;
-  }
+  const coverPath = cover ? await uploadCover(userId, cover) : null;
 
   const created = await createBook({ ...meta, format, coverPath });
   if (!created.ok) return created;

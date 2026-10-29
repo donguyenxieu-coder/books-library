@@ -32,7 +32,22 @@ export const appendChaptersSchema = z.object({
   chapters: z.array(chapterInputSchema).min(1).max(500),
 });
 
+// Sửa sách: coverPath không gửi (undefined) = giữ ảnh cũ, null = bỏ ảnh bìa.
+export const updateBookSchema = bookMetaSchema.extend({
+  coverPath: z.string().max(300).nullable().optional(),
+});
+
+export const chapterTitleSchema = chapterInputSchema.pick({ title: true });
+
+export const reorderChaptersSchema = z.object({
+  bookId: z.uuid(),
+  chapterIds: z.array(z.uuid()).min(1).max(10_000),
+});
+
 export type BookMetaFormValues = z.input<typeof bookMetaSchema>;
 export type BookMetaInput = z.output<typeof bookMetaSchema>;
 export type CreateBookInput = z.input<typeof createBookSchema>;
 export type ChapterInput = z.input<typeof chapterInputSchema>;
+export type UpdateBookInput = z.input<typeof updateBookSchema>;
+export type ChapterTitleFormValues = z.input<typeof chapterTitleSchema>;
+export type ChapterTitleInput = z.output<typeof chapterTitleSchema>;
