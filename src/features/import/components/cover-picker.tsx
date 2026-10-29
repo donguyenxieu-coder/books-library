@@ -8,7 +8,8 @@ import { BookCover } from "@/features/books/components/book-cover";
 
 // Ảnh chọn từ máy là Blob, <img> không hiển thị trực tiếp được → tạo URL tạm
 // "blob:..." ngay lúc chọn ảnh và giữ cùng Blob trong một object.
-export type CoverImage = { blob: Blob; url: string };
+// blob = null: ảnh bìa đã có sẵn trên Storage (trang sửa sách), chỉ có URL.
+export type CoverImage = { blob: Blob | null; url: string };
 
 export function toCoverImage(blob: Blob): CoverImage {
   return { blob, url: URL.createObjectURL(blob) };
@@ -25,7 +26,7 @@ export function CoverPicker({ cover, onChange, title, author }: CoverPickerProps
   // Đổi / xoá ảnh thì giải phóng URL cũ, nếu không trình duyệt giữ ảnh trong bộ nhớ
   // tới khi đóng tab.
   function replace(next: CoverImage | null) {
-    if (cover) URL.revokeObjectURL(cover.url);
+    if (cover?.blob) URL.revokeObjectURL(cover.url);
     onChange(next);
   }
 

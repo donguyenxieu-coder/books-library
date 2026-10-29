@@ -42,3 +42,20 @@ export const getBookWithChapters = cache(async (bookId: string) => {
   if (error) throw new Error(`Không tải được sách: ${error.message}`);
   return data;
 });
+
+// Một chương để đọc, tìm theo số thứ tự (URL /read/3 = chương 3).
+// RLS của chapters chỉ trả về chương của sách mình đọc được.
+export const getChapterForReading = cache(async (bookId: string, position: number) => {
+  if (!z.uuid().safeParse(bookId).success || !Number.isInteger(position) || position < 1) return null;
+
+  const supabase = await createClient();
+  const { data, error } = await supabase
+    .from("chapters")
+    .select("id, title, position, content_html, word_count, book:books(id, title, author, chapter_count)")
+    .eq("book_id", bookId)
+    .eq("position", position)
+    .maybeSingle();
+
+  if (error) throw new Error(`Không tải được chương: ${error.message}`);
+  return data;
+});
